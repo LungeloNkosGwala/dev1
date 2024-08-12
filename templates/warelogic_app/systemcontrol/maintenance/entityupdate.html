@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Links</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+        
+            {% include 'warelogic_app/tabs.html' %}
+
+            {% include 'warelogic_app/systemcontrol/sidebar1.html' %}
+
+
+            <div class="container">
+                <div class="updateForm">
+                    <h4 class="maintenance_h4">Entity Update</h4>
+                    <form method="POST" action="#">
+                        <label>Client Name</label>
+                        <input type="text" name="client" required maxlength="20">
+                        <br>
+                        <label>Branch</label>
+                        <input type="text" name="branch" maxlength="20" required>
+                        <br>
+                        <label>Entity abb.</label>
+                        <input type="text" name="entity" maxlength="3" minlength="3" required>
+                        <br>
+                        <label>Address</label>
+                        <input type="text" name="address" maxlength="50" required>
+                        <button type="submit" name="createEntity">Update</button>
+                        {% csrf_token %}
+                    </form>
+                </div>
+                <br>
+                <br>
+                <div class="container">
+                    <form class="resultTableForm" method="GET" action="">
+                        <table border="1" class="resultTable">
+                            <thead class="header">
+                                <th>Client</th>
+                                <th>Branch</th>
+                                <th>Entity</th>
+                                <th>Address</th>
+                            </thead>
+                            {% for k in allEntity %}
+                            <tr>
+                                <td>{{k.client}}</td>
+                                <td>{{k.branch}}</td>
+                                <td>{{k.entity}}</td>
+                                <td>{{k.address}}</td>
+                            </tr>
+                            {% empty %}
+                                
+                            {% endfor %}
+                            {% csrf_token %}
+                        </table>
+                    </form>
+                </div>
+            </div>
+
+
+        {% else %}
+        <li><a class="navbar-link" href="{% url 'userLogin' %}">Login</a></li>
+        {% endif %}
+        {% csrf_token %}
+    </body>
+</html>

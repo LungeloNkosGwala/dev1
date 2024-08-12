@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Links</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+        
+            {% include 'warelogic_app/tabs.html' %}
+            
+                {% include 'warelogic_app/systemcontrol/sidebar3.html' %}
+                <br>
+                <div class="container">
+                    <div class="container">
+                        <form class="searchForm_class" method="GET" action="">
+                            <input type="text" name="username" placeholder="Search username" value="{{request.GET.username}}">
+                            <input type="submit" name ="search">
+                            {% csrf_token %}
+                        </form>
+                    </div>
+
+                    <div class="container">
+                        <form class="resultTableForm" method="GET" action="">
+                            <table border="1" class="resultTable">
+                                <thead class="header">
+                                    <th>Username</th>
+                                    <th>last login</th>
+                                    <th>Select</th>
+                                    <th><button type="submit" class="btn btn-primary" name="showProfile">Stage</button></th>
+                                </thead>
+                                <tr>
+                                    <td>{{userSearch.username}}</td>
+                                    <td>{{userSearch.last_login}}</td>
+                                    <td><input type="radio" id="sel" name="sel" value="{{userSearch.id}}"></td>
+                                    <td></td>
+                                </tr>
+                                {% csrf_token %}
+                            </table>
+                        </form>
+                    </div>
+                    <div class="container">{% include 'warelogic_app/message.html' %}</div>
+                    <br>
+                    <div class="container">
+                        <form class="resultTableForm" method="GET" action="">
+                            <table border="1" class="resultTable">
+                                <thead class="header">
+                                    <th>Criteria</th>
+                                    <th>Profile</th>
+                                    <th>Select</th>
+                                    <th><button type="submit" class="btn btn-primary" value="{{userSearch.id}}" name="profileUpdate">Update</button></th>
+                                </thead>
+                                <tr>
+                                    <td>Entity</td>
+                                    <td>{{user_entity}}</td>
+                                    <td><select name="entity_sel">
+                                        {% for t in entity %}
+                                        <option value="{{t.entity}}">{{t.entity}}</option>
+                                        {% empty %}
+                                        {% endfor %}
+                                        </select></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Duty</td>
+                                    <td>{{duty}}</td>
+                                    <td><select name="duty_sel">
+                                        {% for t in duty_option %}
+                                        <option value="{{t}}">{{t}}</option>
+                                        {% empty %}
+                                        {% endfor %}
+                                        </select></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Area</td>
+                                    <td>{{area}}</td>
+                                    <td><select name="area_sel">
+                                        {% for t in area_option %}
+                                        <option value="{{t}}">{{t}}</option>
+                                        {% empty %}
+                                        {% endfor %}
+                                        </select></td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Machine</td>
+                                    <td>{{machine}}</td>
+                                    <td><select name="machine_sel">
+                                        {% for t in machine_option %}
+                                        <option value="{{t}}">{{t}}</option>
+                                        {% empty %}
+                                        {% endfor %}
+                                        </select></td>
+                                    <td></td>
+                                </tr>
+
+                                {% csrf_token %}
+                            </table>
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+        {% else %}
+        <li><a class="navbar-link" href="{% url 'userLogin' %}">Login</a></li>
+        {% endif %}
+        {% csrf_token %}
+    </body>
+</html>

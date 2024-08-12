@@ -1,0 +1,14 @@
+{
+    "builds": [{
+        "src": "warelogic/wsgi.py",
+        "use":"@vercel/python",
+        "config":{"maxLambdaSize":"500mb", "runtime":"python3.9"}
+    }],
+
+    "routes":[
+        {
+            "src":"/(.*)",
+            "dest":"warelogic/wsgi.py"
+        }
+    ]
+}

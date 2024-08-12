@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>WareLogic</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            {% block content %}
+            {% if error %}
+            <p class="error">{{ error }}</p>
+            {% endif %}
+            <h1>Welcome to WareLogic</h1>
+            <h3>Login in</h3>
+            <form action="{% url 'userLogin' %}" method="post">
+                <label for="username">Username: </label>
+                <input type="text" name="username" placeholder="username">
+
+                <label for="password">Password: </label>
+                <input type="password" name="password" placeholder="Password">
+
+                <input type="submit" value="Login">
+                {% csrf_token %}
+            </form>
+            {% endblock %}
+
+            {% block extra_js %}
+            <script type="text/javascript">
+                window.addEventListener('popstate', function(event) {
+                    window.location.href = "{% url 'userLogin' %}";
+                });
+                history.pushState(null, null, document.URL);
+                window.addEventListener('beforeunload', function(event) {
+                    history.pushState(null, null, document.URL);
+                });
+            </script>
+            {% endblock %}
+            
+        </div>
+    </body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Links</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+        
+            {% include 'warelogic_app/tabs.html' %}
+
+            <div class="container">
+                <div class="container">
+                    <form class="searchForm_class" method="post" action="">
+                        {% csrf_token %}
+                        {{formB.as_p}}
+                        <button type="submit" name="binsearch">Search</button>
+                    </form>
+
+
+                </div>
+                <div class="container">{% include 'warelogic_app/message.html' %}</div>
+                <div class="container">
+                    <form class="resultTableForm" method="get" action="">
+                        <table border="1" class="resultTable">
+                            <thead class="header">
+                                <th>Productcode</th>
+                                <th>Bin</th>
+                                <th>Area</th>
+                                <th>Stock_QTY</th>
+                                <th>Avail_QTY</th>
+                            </thead>
+                            <tr>
+                                <td>{{productcode}}</td>
+                                <td>{{searchResultB.binn}}</td>
+                                <td>{{searchResultB.area}}</td>
+                                <td>{{searchResultB.sohqty}}</td>
+                                <td>{{searchResultB.availqty}}</td>
+                            </tr>
+                            {% csrf_token %}
+                        </table>
+                    </form>
+                </div>
+                <br>
+                <div class="container">
+                    <form class="searchForm_class" method="post" action="">
+                        {% csrf_token %}
+                        {{formP.as_p}}
+                        <button type="submit" name="productsearch">Search</button>
+                    </form>
+                    <form class="resultTableForm" method="get" action="">
+                        <table border="1" class="resultTable">
+                            <thead>
+                                <th>Inquire</th>
+                                <th>Data</th>
+                            </thead>
+                            {% for k in searchResultP %}
+                            <tr>
+                                <td>Entity</td>
+                                <td>{{k.entity_id}}</td>
+                            </tr>
+                            <tr>
+                                <td>Area</td>
+                                <td>{{k.area}}</td>
+                            </tr>
+                            <tr>
+                                <td>Bin</td>
+                                <td>{{k.binn}}</td>
+                            </tr>
+                            <tr>
+                                <td>SUT</td>
+                                <td>{{k.sut}}</td>
+                            </tr>
+                            <tr>
+                                <td>Movementtype</td>
+                                <td>{{k.abc}}</td>
+                            </tr>
+                            <tr>
+                                <td>BinSeq</td>
+                                <td>{{k.bin_seq}}</td>
+                            </tr>
+                            <tr>
+                                <td>PickSeq</td>
+                                <td>{{k.pick_seq}}</td>
+                            </tr>
+                            <tr>
+                                <td>Productcode</td>
+                                <td>{{productcode}}</td>
+                            </tr>
+                            <tr>
+                                <td>PackQTY</td>
+                                <td>{{k.sohqty}}</td>
+                            </tr>
+                            <tr>
+                                <td>AvailQTY</td>
+                                <td>{{k.availqty}}</td>
+                            </tr>
+                            <tr>
+                                <td>Full</td>
+                                <td>{{k.full}}</td>
+                            </tr>
+                            <tr>
+                                <td>Allocated</td>
+                                <td>{{k.allocated}}</td>
+                            </tr>
+                            <tr>
+                                <td>Route</td>
+                                <td>{{k.routed}}</td>
+                            {% empty %}
+                                
+                            {% endfor %}
+                            {% csrf_token %}
+                        </table>
+                    </form>
+                </div>
+            </div>
+
+
+
+        {% else %}
+        <li><a class="navbar-link" href="{% url 'useLogin' %}">Login</a></li>
+        {% endif %}
+        {% csrf_token %}
+    </body>
+</html>

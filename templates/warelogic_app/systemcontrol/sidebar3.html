@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<meta charset="UTF-8">
+
+<div class="wrapper">
+    <div class="sidebar">
+
+                <button class="sidebarButton"><a href="{% url 'registerUser' %}">RegisterUser</a></button>
+
+                <button class="sidebarButton"><a href="{% url 'userProfile' %}">UpdateProfile</a></button>
+
+                <button class="sidebarButton"><a href="#">Access Level</a></button>
+
+                <button class="sidebarButton"><a href="{% url 'resetPassword' %}">Reset Password</a></button>
+
+
+  </div>
+</div>
+<div class="container"><hr class="rounded" ></div>

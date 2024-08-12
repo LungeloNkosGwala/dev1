@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static %}
+
+
+
+<div class = "container">
+    <div class="dropdown">
+        <button class="dropbtnName">{{user.username}}</button>
+        <div class="dropdown-content">
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Inbound</button>
+        <div class="dropdown-content">
+        <a href="{% url 'loadASN' %}">Load ASN</a>
+        <a href="#">Manage ASN</a>
+        <a href="#">Receive ASN</a>
+        <a href="#">Putaway HU</a>
+        </div>
+        
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Inventory</button>
+        <div class="dropdown-content">
+        <a href="#">Counts</a>
+        <a href="#">HU move</a>
+        <a href="#">Stock Takeon</a>
+        <a href="#">Back to stock</a>
+        <a href="#">HU Route</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Outbound</button>
+        <div class="dropdown-content">
+        <a href="#">Load Order</a>
+        <a href="#">Order Schedule</a>
+        <a href="#">Order Manage</a>
+        <a href="#">User Picks</a>
+        <a href="#">Pick Staging</a>
+        <a href="#">Packing</a>
+
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Inquire</button>
+        <div class="dropdown-content">
+        <a href="#">Order Inquire</a>
+        <a href="#">ASN Inquire</a>
+        <a href="{% url 'productInquire' %}">Product Inquire</a>
+        <a href="{% url 'binInquire' %}">Bin Inquire</a>
+        <a href="#">WorkFlow analyse</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">System Control</button>
+        <div class="dropdown-content">
+        <a href="{% url 'usermanagement' %}">UserManagement</a>
+        <a href="{% url 'systemmaintenance' %}">System Maintenance</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Reports</button>
+        <div class="dropdown-content">
+        <a href="#">Inbound</a>
+        <a href="#">Inventory</a>
+        <a href="#">Outbound</a>
+        </div>
+    </div>
+</div>
+<div class="container"><hr class="rounded" ></div>

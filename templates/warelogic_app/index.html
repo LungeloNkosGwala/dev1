@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>WareLogic</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+            {% include "warelogic_app/tabs.html" %}
+
+
+
+            {% else %}
+            <div class="container">
+                <h1>WareLogic</h1>
+                <br>
+                <h4>Hi, Welcome to WareLogic</h4>
+                <p>Please click on the Login link: <a class="navbar-link" href="{% url 'userLogin' %}">Login</a></p>
+                {% csrf_token %}
+            </div>
+        {% endif %}
+        {% csrf_token %}
+    </body>
+</html>

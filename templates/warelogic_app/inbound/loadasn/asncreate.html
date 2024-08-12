@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Warelogic</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+        
+            {% include 'warelogic_app/tabs.html' %}
+
+            {% include 'warelogic_app/inbound/sidebar2.html' %}
+
+        <br>
+        <div class="container">
+            <div class="container">
+                <form class="resultTableForm" method="GET" action="">
+                    <table border="1" class="resultTable">
+                        <thead class="header">
+                            <th>Branch</th>
+                            <th>Detail</th>
+                        </thead>
+                        <tr>
+                            <td>Entity</td>
+                            <td>{{entity}}</td>
+                        </tr>
+                        <tr>
+                            <td>ASN No</td>
+                            <td>{{asnno}}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Lines</td>
+                            <td>{{total_lines}}</td>
+                        </tr>
+                        <tr>
+                            <td>Total QTY</td>
+                            <td>{{total_qty}}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Cost</td>
+                            <td>R{{total_cost}}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Sales</td>
+                            <td>R{{total_sales}}</td>
+                        </tr>
+                        <tr>
+                            <td>ASN Creator</td>
+                            <td>{{user.username}}</td>
+                        </tr>
+                        <tr>
+                            <td>ASN Type</td>
+                            <td><select name="asntype_sel">
+                                {% for t in asntype %}
+                                <option value="{{t}}">{{t}}</option>
+                                {% empty %}
+                                {% endfor %}
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td>ASN Supplier</td>
+                            <td><input type="text" max_length=40 id="supplier" name="supplier" required></td>
+                        </tr>
+                        <tr>
+                            <td>ASN Invoice</td>
+                            <td><input type="text" max_length=30 id="invoice" name="invoice"></td>
+                        </tr>
+                        <tr>
+                            <td>ASN Reference</td>
+                            <td><input type="text" max_length=30 id="reference" name="reference"></td>
+                        </tr>
+
+                        {% csrf_token %}
+                    </table>
+                    <br>
+                    <button type="submit" name="asnCreate">Submit</button>
+                    {% csrf_token %}
+                </form>
+            </div>
+            <div class="container">{% include 'warelogic_app/message.html' %}</div>
+        </div>
+
+
+        {% else %}
+        <li><a class="navbar-link" href="{% url 'userLogin' %}">Login</a></li>
+        {% endif %}
+        {% csrf_token %}
+    </body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<meta charset="UTF-8">
+
+<div class="wrapper">
+    <div class="sidebar">
+
+                <button class="sidebarButton"><a href="{% url 'asnItemSelect' %}">Part Select</a></button>
+
+                <button class="sidebarButton"><a href="{% url 'asnCreate' %}">ASN Submit</a></button>
+
+                <button class="sidebarButton"><a href="#" >User ASNs</a></button>
+
+
+  </div>
+</div>

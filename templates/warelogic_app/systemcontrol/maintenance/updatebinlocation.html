@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Links</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+        
+            {% include 'warelogic_app/tabs.html' %}
+
+            {% include 'warelogic_app/systemcontrol/sidebar1.html' %}
+
+            <div class="container">
+                <div class="uploadForm">
+                    <h3 class="maintenance_h4">Bin Location Update</h3>
+                    <form method="POST" action="#" enctype="multipart/form-data">
+                        {{form.as_p}}
+                        {% csrf_token %}
+                        <button type="submit" name="updatebinlocation">Upload File</button>
+                    </form>
+                </div>
+                <div class="failureList">
+                    <table>
+                        <thead>
+                            <th>Unsuccessful Uploads</th>
+                        </thead>
+                        {% for k in failed_lines %}
+                        <tr>
+                            <td>{{k}}</td>
+                        </tr>
+                        {% empty %}
+                        {% endfor %}
+                        {% csrf_token %}
+                    </table>
+                </div>
+            </div>
+            
+            <div class="container">{% include 'warelogic_app/message.html' %}</div>
+
+            <div class = "container">
+                <div class="uploadForm">
+                    <form class="searchForm_class" method="post" action="">
+                        <h4 class="maintenance_h4">Delete Bin</h4>
+                        <input type="text" name="binn" placeholder="binn">
+                        <label for="">Delete</label>
+                        <input type="radio" id="type" name="delete" placeholder="Enter ref." value="delete">
+                        <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        {% csrf_token %}
+                    </form>
+                </div>
+            </div>
+
+        
+        {% else %}
+        <li><a class="navbar-link" href="{% url 'userLogin' %}">Login</a></li>
+        {% endif %}
+        {% csrf_token %}
+    </body>
+</html>

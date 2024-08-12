@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{% load static %}
+
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>WareLogic</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+        
+            {% include 'warelogic_app/tabs.html' %}
+
+            {% include 'warelogic_app/inbound/sidebar2.html' %}
+            <br>
+            <div class="container">
+                <div class="container">
+                    <form class="searchForm_class" method="GET" action="">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button type="submit" name="search">Search</button>
+                    </form>
+                </div>
+                <div class="container">
+                    <form class="resultTableForm" method="GET" action="">
+                        <table border="1" class="resultTable">
+                            <thead class="header">
+                                <th>Productcode</th>
+                                <th>Description</th>
+                                <th>Select</th>
+                                <th><input type="number" min="1" id="qty" name="qty" placeholder="Enter qty" value="{{request.GET.qty}}" required></th>
+                                <th><button type="submit" class="btn btn-primary" name="stage">Stage</button></th>
+                            </thead>
+                            {% for k in searchResult %}
+                            <tr>
+                                <td>{{k.productcode}}</td>
+                                <td>{{k.description}}</td>
+                                <td><input type="radio" id="sel" name="sel" value="{{k.id}}"></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            {% empty %}
+                                
+                            {% endfor %}
+                            {% csrf_token %}
+                        </table>
+                    </form>
+                </div>
+                <br>
+                <div class="container">
+                    <form class="resultTableForm" method="GET" action="">
+                        <table border="1" class="resultTable">
+                            <thead class="header">
+                                <th>Branch</th>
+                                <th>Productcode</th>
+                                <th>QTY</th>
+                                <th>Sales</th>
+                                <th>Select</th>
+                                <th><button type="submit" class="btn btn-primary" name="delete">Delete</button></th>
+                            </thead>
+                            {% for k in asnStaging %}
+                            <tr>
+                                <td>{{k.entity.entity}}</td>
+                                <td name="productcode" value="{{k.productcode.productcode}}">{{k.productcode.productcode}}</td>
+                                <td>{{k.qty}}</td>
+                                <td>{{k.qty}}</td>
+                                <td><input type="radio" id="sel" name="sel_delete" value="{{k.productcode_id}}"></td>
+                                <td></td>
+                            </tr>
+                            {% empty %}
+                                
+                            {% endfor %}
+                            {% csrf_token %}
+                        </table>
+                    </form>
+                </div>
+
+                <div class="container">{% include 'warelogic_app/message.html' %}</div>
+            </div>
+
+    
+
+        
+        {% else %}
+        <li><a class="navbar-link" href="{% url 'userLogin' %}">Login</a></li>
+        {% endif %}
+        {% csrf_token %}
+    </body>
+</html>

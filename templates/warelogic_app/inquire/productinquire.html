@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Links</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+        
+            {% include 'warelogic_app/tabs.html' %}
+
+
+            <div class="container">
+                <div class="container">
+                    <form class="searchForm_class" method="post" action="">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button type="submit" name="search">Search</button>
+                    </form>
+                </div>
+                <div class="container">{% include 'warelogic_app/message.html' %}</div>
+                <br>
+                <div class="container">
+                    <form class="resultTableForm" method="post" action="">
+                        <table border="1" class="resultTable">
+                            <thead class="header">
+                                <th>Productcode</th>
+                                <th>SOH</th>
+                                <th>Avail</th>
+                                <th>Onhold</th>
+                                <th>999</th>
+                                <th>allocated_qty</th>
+                                <th>Inbound</th>
+                                <th>Outbound</th>
+                            </thead>
+                            {% for k in searchResult %}
+                            <tr>
+                                <td>{{k.productcode}}</td>
+                                <td>{{k.sohqty}}</td>
+                                <td>{{k.availqty}}</td>
+                                <td>{{k.onholdqty}}</td>
+                                <td>{{k.reconqty}}</td>
+                                <td>{{k.allocated_qty}}</td>
+                                <td>{{k.inboundqty}}</td>
+                                <td>{{k.outboundqty}}</td>
+                            </tr>
+                            {% empty %}
+                                
+                            {% endfor %}
+                            {% csrf_token %}
+                        </table>
+                    </form>
+                </div>
+                <br>
+                <div class="container">
+                    <form class="resultTableForm" method="post" action="">
+                        <table border="1" class="resultTable">
+                            <thead>
+                                <th>Inquire</th>
+                                <th>Data</th>
+                            </thead>
+                            {% for k in searchResult %}
+                            <tr>
+                                <td>Client</td>
+                                <td>{{k.entity_id}}</td>
+                            </tr>
+                            <tr>
+                                <td>Entity</td>
+                                <td>{{k.productcode}}</td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td>{{k.description}}</td>
+                            </tr>
+                            <tr>
+                                <td>Barcode</td>
+                                <td>{{k.barcode}}</td>
+                            </tr>
+                            <tr>
+                                <td>CostPrice</td>
+                                <td>{{k.costprice}}</td>
+                            </tr>
+                            <tr>
+                                <td>SalesPrice</td>
+                                <td>{{k.salesprice}}</td>
+                            </tr>
+                            <tr>
+                                <td>PackQty</td>
+                                <td>{{k.packqty}}</td>
+                            </tr>
+                            <tr>
+                                <td>Unit of Issue</td>
+                                <td>{{k.uoiqty}}</td>
+                            </tr>
+                            <tr>
+                                <td>Area</td>
+                                <td>{{k.area}}</td>
+                            </tr>
+                            <tr>
+                                <td>SUT</td>
+                                <td>{{k.sut}}</td>
+                            </tr>
+                            <tr>
+                                <td>Movementtype</td>
+                                <td>{{k.abc}}</td>
+                            </tr>
+                            <tr>
+                                <td>Status</td>
+                                <td>{{k.status}}</td>
+                            {% empty %}
+                                
+                            {% endfor %}
+                            {% csrf_token %}
+                        </table>
+                    </form>
+                </div>
+                <br>
+                <div class="container">
+                    <h5>Update PFEP</h5>
+                    <form class="resultTableForm" method="post" action="">
+                        <table border="1" class="resultTable">
+                            <thead>
+                                <th>Inquire</th>
+                                <th>Selection</th>
+                            </thead>
+                            <tr>
+                                <td>Area</td>
+                                <td><select name="area_sel">
+                                    {% for t in area %}
+                                    <option value="{{t}}">{{t}}</option>
+                                    {% empty %}
+                                    {% endfor %}
+                                </select></td>
+
+                            </tr>
+                            <tr>
+                                <td>SUT</td>
+                                <td><select name="sut_sel">
+                                    {% for t in sut %}
+                                    <option value="{{t}}">{{t}}</option>
+                                    {% empty %}
+                                    {% endfor %}
+                                </select></td>
+
+                            </tr>
+                            <tr>
+                                <td>Movementtype</td>
+                                <td><select name="abc_sel">
+                                    {% for t in abc %}
+                                    <option value="{{t}}">{{t}}</option>
+                                    {% empty %}
+                                    {% endfor %}
+                                </select></td>
+
+                            </tr>
+                            <tr>
+                                <td>UPDATE</td>
+                                {% for t in searchResult %}
+                                <td><button type="submit"  value = "{{t.productcode}}" name ="updatepfep">Update</button></td>
+                                {% empty %}
+                                {% endfor %}
+                            </tr>
+
+                        {% csrf_token %}
+                        </table>
+                    </form>
+                </div>
+
+            </div>
+
+
+
+        {% else %}
+        <li><a class="navbar-link" href="{% url 'userLogin' %}">Login</a></li>
+        {% endif %}
+        {% csrf_token %}
+    </body>
+</html>

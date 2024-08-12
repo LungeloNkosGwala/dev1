@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<meta charset="UTF-8">
+
+<div class="wrapper">
+    <div class="sidebar">
+
+                <button class="sidebarButton"><a href="{% url 'updateProductMaster' %}">Update PM</a></button>
+
+                <button class="sidebarButton"><a href="#">Pfep Upload</a></button>
+
+                <button class="sidebarButton"><a href="{% url 'updateBinLocation' %}">Bin Upload</a></button>
+
+                <button class="sidebarButton"><a href="#" >Staging Bin Upload</a></button>
+
+                <button class="sidebarButton"><a href="#" >Order Capacity</a></button>
+
+                <button class="sidebarButton"><a href="#">Customer Detail</a></button>
+
+                <button class="sidebarButton"><a href="#" >Route Codes</a></button>
+
+                <button class="sidebarButton"><a href="{% url 'createEntity' %}" >Branch Update</a></button>
+
+                <button class="sidebarButton"><a href="{% url 'requestFunctions' %}" >Requestion Functions</a></button>
+
+  </div>
+</div>
+<div class="container"><hr class="rounded" ></div>
